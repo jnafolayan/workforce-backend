@@ -1,4 +1,4 @@
-import { Router } from './express';
+import { Router } from 'express';
 import AdminController from './admin.controller';
 
 const adminRouter = Router();

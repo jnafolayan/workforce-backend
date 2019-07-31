@@ -11,5 +11,5 @@ export default function loadAll(app, config) {
   return Promise.all([
     loadMongoose(app, config),
     loadRoutes(app, config)
-  ]);
+  ]).then(() => console.log('System resources loaded'));
 }
