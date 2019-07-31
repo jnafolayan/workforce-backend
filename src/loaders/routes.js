@@ -1,3 +1,4 @@
+import cors from 'cors';
 import { setup } from '../apiRouter';
 
 /**
@@ -7,6 +8,7 @@ import { setup } from '../apiRouter';
  */
 export default function loadRoutes(app, config) {
   return new Promise((resolve, reject) {
+    app.use(cors());
     app.use('/api', setup());
 
     app.use((err, req, res, next) => {
