@@ -7,7 +7,7 @@ import { setup } from '../apiRouter';
  * @return {Promise}
  */
 export default function loadRoutes(app, config) {
-  return new Promise((resolve, reject) {
+  return new Promise((resolve, reject) => {
     app.use(cors());
     app.use('/api', setup());
 
