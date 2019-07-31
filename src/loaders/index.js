@@ -1,4 +1,5 @@
 import loadMongoose from './mongoose';
+import loadRoutes from './routes';
 
 /**
  * Executes all loaders. If an error occurs in one, the whole
@@ -8,6 +9,7 @@ import loadMongoose from './mongoose';
  */
 export default function loadAll(app, config) {
   return Promise.all([
-    loadMongoose(app, config)
+    loadMongoose(app, config),
+    loadRoutes(app, config)
   ]);
 }
