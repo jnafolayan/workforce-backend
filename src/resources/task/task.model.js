@@ -22,6 +22,7 @@ const taskSchema = new mongoose.Schema({
   },
   taskQuality:{
   	type:String,
+  	default:null,
   },
 });
 

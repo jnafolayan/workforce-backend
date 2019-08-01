@@ -1,7 +1,7 @@
 import express from 'express';
 import { Router } from 'express';
 import adminRouter from './resources/admin/admin.router';
-import taskRouter from './resources/task/routes';
+import taskRouter from './resources/task/task.router';
 import path from 'path';
 
 export function setup() {
@@ -12,7 +12,7 @@ apiRouter.use(express.urlencoded({extended:false}))
   // add api routes here
 apiRouter.use('/admin', adminRouter);
 apiRouter.use('/task',taskRouter)
-apiRouter.use('/',express.static(path.resolve(__dirname,'public')))
+
 
   return apiRouter;
 }
