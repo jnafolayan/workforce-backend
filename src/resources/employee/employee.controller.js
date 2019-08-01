@@ -8,29 +8,37 @@ import Attendance from "../attendance/attendance.employee.models"
      static async EmployeeSignup(req, res ,next){
         let hash = helper.hashPassword(req.body.password);
         Employee.find({email:req.body.email}).then(data=> {
-            return res.send("Exists")
+            if(!data.length == 0 ) {
+            return res.status(400).json({status:"failed", code: 400, message: "Email exists"})                
+            }
+            else {
+                const signUp = new Employee({
+                    // will add picture and cv later
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    phone: req.body.phone,
+                    password: hash,
+                    email: req.body.email,
+                    dob: req.body.dob,
+                    gender: req.body.gender,
+                    role: req.body.role,
+                }) 
+                try {
+                    signUp.save().then(employee=> {
+                        console.log(employee)
+                        return res.status(201).json({ status: 201,message: "Added new employee successfully", data: employee});
+                    }).catch(error=>{
+                        return res.status(400).json({status:"failed", code: 400, message: "Email exists", error})
+                    })
+                }
+                catch(error){
+                    res.send(error)
+                }
+            }
+        }).catch(err=> {
+
         })
-        const signUp = new Employee({
-            // will add picture and cv later
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
-            phone: req.body.phone,
-            password: hash,
-            email: req.body.email,
-            dob: req.body.dob,
-            gender: req.body.gender,
-            role: req.body.role,
-        }) 
-        try {
-            signUp.save().then(staff=> {
-                res.status(201).send({ status: 201,message: "Added new employee successfully", data: [{ token, staff }] });
-            }).catch(error=>{
-                res.status(400).json({status:"failed", code: 400, message: "Email exists", error})
-            })
-        }
-        catch(error){
-            res.send(error)
-        }
+        
         
      }
 
