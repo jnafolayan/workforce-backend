@@ -1,9 +1,9 @@
 import Employee from "./employee.model"
-import helper from "./employee.helpers"
-import Attendance from "../attendance/attendance.employee.models"
+// import helper from "./employee.helpers"
+// import Attendance from "../attendance/attendance.employee.models"
 // import EmployeeLeaveController from "../leave/leave.employee.controller";
 
- export default class EmployeeController{
+ export default class EmployeeController {
 
      static async EmployeeSignup(req, res ,next){
         let hash = helper.hashPassword(req.body.password);

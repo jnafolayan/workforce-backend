@@ -10,8 +10,7 @@ const employeeModel = new mongoose.Schema({
   gender: String,
   role: String,
   password: String,
-  isLoggedIn: { type: Boolean, default: false},
-  employedAt: { type: String, required: true, default: Date.now() },
+  employedAt: { type: String, required: true, default: Date.now },
   cv: String
 }, { timestamps: true });
 
