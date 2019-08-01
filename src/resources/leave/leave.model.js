@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 
-const AdminModelSchema = new mongoose.Schema({
-  By: {
-      type:  String,
-      required: true,
-  },
+const employeeModelSchema = new mongoose.Schema({
+    by : {
+        type: String,
+        required: true
+    },
   message: {
       type: String,
       required: true,
@@ -15,21 +15,23 @@ const AdminModelSchema = new mongoose.Schema({
     required: true,
     minlength: 5
   },
-  date_applied_for_leave: {
+  appliedDate: {
       type: Date,
       required: true,
+      default: Date.now()
   },
-  date_to_start_leave: {
+  startDate: {
     type: Date,
     required: true
 },
-date_to_end_leave: {
+endDate: {
     type: Date,
     required: true
 },
-status : {
+status: {
     type:  String,
+    default: 'pending'
 }
 });
 
-export default mongoose.model('Admin_message', AdminModelSchema);
+export default mongoose.model('employeeLeave', employeeModelSchema);
