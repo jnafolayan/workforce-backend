@@ -61,7 +61,6 @@
     "token": string
   }
 }
-}
 ```
 
 ### Attendance

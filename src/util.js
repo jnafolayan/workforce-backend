@@ -23,3 +23,14 @@ export function generateJwtToken(payload, expiry) {
 export function generateHash(string) {
   return bcrypt.hash(string, 11);
 }
+
+export function getOrigIdFromGenerated(gen, model) {
+  return model.findOne({ id: gen })
+    .select('_id')
+    .exec()
+    .then(emp => {
+      if (emp)
+        return emp._id;
+      return emp;
+    });
+}

@@ -1,6 +1,7 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const attendanceSchema = new mongoose.Schema({
+  id: { type: String, default: () => uuidv1().split('-').shift() },
     employee: { type: mongoose.Schema.Types.ObjectId, ref: 'Employee' },
     entry: { type: Date, default: Date.now },
     exit: Date

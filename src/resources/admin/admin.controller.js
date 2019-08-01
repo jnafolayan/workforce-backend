@@ -76,7 +76,7 @@ export default class AdminController {
 
     function generateAdminToken(admin) {
       return generateJwtToken({
-        id: admin._id
+        id: admin._id,
       }, '7d');
     }
 
@@ -84,7 +84,7 @@ export default class AdminController {
       res.status(200).json({
         status: 200,
         message: 'Admin logged in',
-        data: { token }
+        data: [{ token }]
       });
     }
   }

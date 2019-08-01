@@ -1,9 +1,8 @@
 import { Router } from 'express';
 import adminRouter from './resources/admin/admin.router';
-// import employeeRouter from './resources/employee/employee.router'
+import employeeRouter from './resources/employees/employee.router'
 import attendanceRouter from './resources/attendance/attendance.router';
-// import employeeLeaveRouter from './resources/leave/leave.employee.route'
-// import adminLeaveRouter from './resources/leave/leave.admin.router'
+import leaveRouter from './resources/leaves/leaves.router';
 
 export function setup() {
   const apiRouter = Router();
@@ -11,11 +10,8 @@ export function setup() {
   // add api routes here
   apiRouter.use('/admin', adminRouter);
   apiRouter.use('/attendance', attendanceRouter);
-  // apiRouter.use('/admin/leave/',adminLeaveRouter);
-  // apiRouter.use('/employee/leave',employeeLeaveRouter)
-  // apiRouter.use('/employee/attendance', attendanceRouter)
-  // apiRouter.use('/employee', employeeRouter)
-  // apiRouter.use('/admin', adminRouter);
+  apiRouter.use('/leaves', leaveRouter);
+  apiRouter.use('/employees', employeeRouter)
 
   return apiRouter;
 }
