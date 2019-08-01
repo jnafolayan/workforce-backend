@@ -8,6 +8,15 @@ import mongoose from 'mongoose';
  * object.
  */
 
+
+
+
+
+
+
+
 export default function loadMongoose(app, config) {
-  return mongoose.connect(config.dbURL, { useNewUrlParser: true });
+ 
+return mongoose.connect('mongodb://collabs:c0llabs@ds149676.mlab.com:49676/workforce' , { useNewUrlParser: true });
+
 }

@@ -1,19 +1,30 @@
 import mongoose from 'mongoose';
 
 const taskSchema = new mongoose.Schema({
-  taskName: String,
-  taskRecipient:String,
-  taskIssuer:String,
-  taskDesc: String,
+  taskName: {
+  	type:String,
+   
+  },
+  assignedTo:{
+  	  type:String,
+  },
+  taskIssuer:{
+  	type:String,
+  },
+  taskDesc:{
+  	type:String,
+  },
   taskStartDate:Date,
   taskEndDate:Date,
   taskStatus: {
       type:String,
-      default:started,
+      default:"started",
   },
-  taskQuality:String,
+  taskQuality:{
+  	type:String,
+  },
 });
 
 
 
-export default mongoose.model('Task', adminSchema);
+export default mongoose.model('Task', taskSchema);
