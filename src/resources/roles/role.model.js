@@ -7,10 +7,7 @@ const roleSchema = new mongoose.Schema({
     default: () => uuidv1().split('-').shift() 
   },
   name: String,
-  actions: [{
-    enum: ['task_assign'],
-    default: ''
-  }]
+  actions: [String]
 });
 
 export default mongoose.model('Role', roleSchema);
