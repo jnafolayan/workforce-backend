@@ -1,12 +1,29 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt-nodejs');
+let cloudinary = require("cloudinary").v2;
+// const bcrypt = require('bcrypt-nodejs');
 const moment = require("moment");
+
+
 import * as config from '../../config';
 
 export default class Helper {
 
    static dateFormat(date) {
     return moment(date).format("MMMM Do YYYY")
+  }
+
+  static getImageUrl(){
+    const pic = req.files.employeeImg
+    cloudinary.uploader.upload(pic.tempFilePath, (error, result)=> {
+        return result.url
+    })
+  }
+
+  static getCvUrl() {
+    const cv  = req.files.cv
+    cloudinary.uploader.upload(cv.tempFilePath, (error, result)=> {
+        return result.url
+    }) 
   }
 
   static verifyToken(token) {

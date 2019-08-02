@@ -19,3 +19,4 @@ export function verifyAuth(req, res, next) {
     next();
   });
 }
+
