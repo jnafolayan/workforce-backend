@@ -2,7 +2,10 @@ import mongoose from 'mongoose';
 import uuidv1 from 'uuid/v1';
 
 const employeeModel = new mongoose.Schema({
-  id: { type: String, default: () => uuidv1().split('-').shift() },
+  id: { 
+    type: String, 
+    default: () => uuidv1().split('-').shift() 
+  },
   firstname: String,
   lastname: String,
   phone: String,

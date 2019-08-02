@@ -1,4 +1,5 @@
 import Role from './role.model';
+import { createError } from '../../util';
 
 /**
  * This is the layer between the controller and the database.
@@ -13,8 +14,9 @@ export default class RoleService {
   static createRole({ name }) {
     name = name.toLowerCase();
 
-    return Role.create({ name: name.toLowerCase() })
-      .then();
+    return getExistingRole()
+      .then(abortIfRoleExists)
+      .then(createNewRole);
 
     function getExistingRole() {
       return Role.findOne({ name });
@@ -22,11 +24,29 @@ export default class RoleService {
 
     function abortIfRoleExists(role) {
       if (role)
-        throw createError(403, 'Role already exists');
+        throw createError(422, 'Role already exists');
     }
 
     function createNewRole() {
-      return Role.cr
+      return Role.create({ name });
     }
+  }
+
+  static getRoles() {
+    return Roles.find({})
+      .then(roles => roles.map(role => role.toJSON()));
+  }
+
+  static getRole(query) {
+    return Role.findOne(query)
+      .then(role => role ? role.toJSON() : null);
+  }
+
+  static updateRole({ query, update }) {
+    return Role.updateOne(query, update);
+  }
+
+  static deleteRole(query) {
+    return Role.deleteOne(query);
   }
 }

@@ -20,7 +20,7 @@ export default function loadRoutes(app, config) {
         console.log(err);
         err = createError(500, 'Internal server error');
       }
-      console.log(err.message)
+
       res.status(err.status).json({
         status: err.status,
         message: err.message
