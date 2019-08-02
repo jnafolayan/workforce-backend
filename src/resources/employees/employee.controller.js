@@ -118,7 +118,7 @@ export default class EmployeeController {
   }
 
   // route to remove a staff
-  static async removeEmployee(req, res, next) {
+  static removeEmployee(req, res, next) {
     getOrigIdFromGenerated(req.params.employeeId, Employee)
       .then(verifyEmployeeExists)
       .then(deleteAllAttendance)
