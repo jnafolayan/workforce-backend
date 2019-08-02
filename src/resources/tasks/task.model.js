@@ -34,7 +34,8 @@ taskSchema.methods.toJSON = function() {
     description: this.description,
     issuer: this.issuer,
     receiver: this.receiver,
-    eta: this.eta
+    eta: this.eta,
+    status: this.closed ? 'closed' : this.complete ? 'complete' : 'pending'
   };
 };
 
