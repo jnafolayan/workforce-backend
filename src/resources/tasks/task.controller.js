@@ -7,7 +7,7 @@ import {
 
 export default class TaskController {
   static createTask(req, res, next) {
-    getObjectIdFromGenerated(req.body.receiver, Employee)
+    getOrigIdFromGenerated(req.body.receiver, Employee)
       .then(createNewTask)
       .then(sendResponse)
       .catch(next);
