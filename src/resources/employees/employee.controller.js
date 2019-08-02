@@ -126,7 +126,7 @@ export default class EmployeeController {
   }
 
   static updateEmployee(req, res, next) {
-    Employee.updateOne({ id: req.params.id }, { ...req.body })
+    Employee.updateOne({ id: req.params.employeeId }, { ...req.body })
       .then(sendResponse)
       .catch(next);
 

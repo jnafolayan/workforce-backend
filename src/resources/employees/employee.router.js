@@ -12,7 +12,7 @@ employeeRouter.get('/', EmployeeController.getEmployees);
 employeeRouter.post('/login', EmployeeController.login);
 
 employeeRouter.get('/:employeeId', EmployeeController.getEmployee);
-employeeRouter.update('/:employeeId', verifyAuth, verifyAdmin, EmployeeController.updateEmployee);
+employeeRouter.patch('/:employeeId', verifyAuth, verifyAdmin, EmployeeController.updateEmployee);
 employeeRouter.delete('/:employeeId', verifyAuth, verifyAdmin, EmployeeController.removeEmployee);
 
 employeeRouter.get('/:employeeId/leaves', verifyAuth, EmployeeController.getEmployeeLeaves);
