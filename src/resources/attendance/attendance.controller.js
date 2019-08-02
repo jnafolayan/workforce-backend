@@ -1,5 +1,5 @@
-import Attendance from './attendance.models'
-import Employee from '../employee/employee.model'
+import Attendance from './attendance.model';
+import Employee from '../employees/employee.model';
 import { createError, checkIfDatesAreToday } from '../../util';
 
 export default class AttendanceController {
@@ -23,7 +23,7 @@ export default class AttendanceController {
   }
 
   static signout(req, res, next) {
-    function getLastEntry()
+    getLastEntry()
       .then(checkIfMadeToday)
       .then(signEmployeeOut)
       .then(sendResponse)
@@ -61,7 +61,7 @@ export default class AttendanceController {
   }
 
   static getTodaysAttendance(req, res, next) {
-    return getLastEntry()
+    getLastEntry()
       .then(checkIfMadeToday)
       .then(sendResponse)
       .catch(next);
@@ -89,7 +89,7 @@ export default class AttendanceController {
   }
 
   static getAllEmployeesAttendance(req, res, next) {
-    return Attendance.find({})
+    Attendance.find({})
       .populate('employee')
       .exec()
       .then(sendResponse)
@@ -98,17 +98,17 @@ export default class AttendanceController {
     function sendResponse(docs) {
       res.status(200).json({
         status: 200,
-        data: docs.map(attendance => {
+        data: docs.map(attendance => ({
           employee: attendance.employee.toJSON(),
           entry: attendance.entry,
-          exit: attendance.exit ? attendance.exit || false
-        });
+          exit: attendance.exit ? attendance.exit : null
+        }))
       });
     }
   }
 
   static getEmployeeAttendance(req, res, next) {
-    return Attendance.find({ employee: req.user.id })
+    Attendance.find({ employee: req.user.id })
       .populate('employee')
       .exec()
       .then(sendResponse)
@@ -117,11 +117,11 @@ export default class AttendanceController {
     function sendResponse(docs) {
       res.status(200).json({
         status: 200,
-        data: docs.map(attendance => {
+        data: docs.map(attendance => ({
           employee: attendance.employee.toJSON(),
           entry: attendance.entry,
-          exit: attendance.exit ? attendance.exit || false
-        });
+          exit: attendance.exit ? attendance.exit : null
+        }))
       });
     }
   }

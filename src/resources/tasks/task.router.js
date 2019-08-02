@@ -11,3 +11,5 @@ taskRouter.get('/:taskId', verifyAuth, TaskController.getTask);
 taskRouter.patch('/:taskId/complete', verifyAuth, TaskController.completeTask);
 taskRouter.patch('/:taskId/close', verifyAuth, TaskController.closeTask);
 taskRouter.patch('/:taskId/open', verifyAuth, TaskController.openTask);
+
+export default taskRouter;

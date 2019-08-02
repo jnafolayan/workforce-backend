@@ -12,7 +12,11 @@ const employeeModel = new mongoose.Schema({
   gender: String,
   role: String,
   password: String,
-  employedAt: { type: Date, required: true, default: Date.now },
+  employedAt: { 
+    type: Date, 
+    required: true, 
+    default: Date.now 
+  },
   cv: String
 }, { timestamps: true });
 

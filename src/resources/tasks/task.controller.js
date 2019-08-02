@@ -64,7 +64,7 @@ export default class TaskController {
   static getAllTasks(req, res, next) {
     Task.find({})
       .populate('issuer recepient')
-      .exec();
+      .exec()
       .then(sendResponse)
       .catch(next);
 

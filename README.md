@@ -25,6 +25,41 @@
 }
 ```
 
+### Attendance {#attendance}
+```
+{
+  "id": string,
+  "employee": Employee,
+  "entry": Date,
+  "exit": Date
+}
+```
+
+### Leaves {#leaves}
+```
+{
+  "id": string,
+  "by": Employee,
+  "reason": string,
+  "status": string (pending, accepted, declined),
+  "start": Date,
+  "end": string
+}
+```
+
+### Tasks {#tasks}
+```
+{
+  "id": string,
+  "issuer": Employee,
+  "details": string,
+  "recepient": string,
+  "eta": Date,
+  "complete": Boolean,
+  "closed": Boolean
+}
+```
+
 # Specification
 
 ### Admin
@@ -65,7 +100,7 @@
 
 ### Attendance
 **GET** _/api/attendance_
-**Response**
+###### Response
 ```
 {
   "status": number,
@@ -92,7 +127,7 @@
   "message": string
 }
 ```
-**POST** _/api/attendance/today - Get attendance for the day for an employee
+**POST** _/api/attendance/today_ - Get attendance for the day for an employee
 **Response**
 ```
 {

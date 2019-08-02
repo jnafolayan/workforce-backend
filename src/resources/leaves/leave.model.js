@@ -12,8 +12,8 @@ const leaveSchema = new mongoose.Schema({
     type: String,
     default: 'pending'
   },
-  from: Date,
-  duration: Date,
+  start: Date,
+  end: Date,
 }, { timestamps: true });
 
 leaveSchema.methods.toJSON = function() {
@@ -21,8 +21,8 @@ leaveSchema.methods.toJSON = function() {
     by: this.by,
     reason: this.reason,
     status: this.status,
-    from: this.from,
-    duration: this.duration
+    start: this.start,
+    end: this.end
   };
 };
 

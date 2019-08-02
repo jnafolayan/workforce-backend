@@ -1,6 +1,6 @@
 import Employee from "./employee.model";
 import Attendance from "../attendance/attendance.model"
-import Leave from "../leave/leave.model"
+import Leave from "../leaves/leave.model"
 
 import {
   createError,
@@ -10,7 +10,7 @@ import {
 } from '../../util';
 
 export default class EmployeeController {
-  static async signup(req, res ,next) {
+  static signup(req, res ,next) {
     getExisting()
       .then(abortIfEmployeeExists)
       .then(createNewEmployee)
@@ -181,7 +181,7 @@ export default class EmployeeController {
     }
 
     function getAll(id) { 
-      return Leave.find({ by: id });
+      return Leave.find({ by: id })
         .populate('by')
         .exec();
     }

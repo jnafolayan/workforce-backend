@@ -2,8 +2,8 @@ import { Router } from 'express';
 import adminRouter from './resources/admin/admin.router';
 import employeeRouter from './resources/employees/employee.router'
 import attendanceRouter from './resources/attendance/attendance.router';
-import leaveRouter from './resources/leaves/leaves.router';
-import taskRouter from './resources/tasks/tasks.router';
+import leaveRouter from './resources/leaves/leave.router';
+import taskRouter from './resources/tasks/task.router';
 
 export function setup() {
   const apiRouter = Router();
