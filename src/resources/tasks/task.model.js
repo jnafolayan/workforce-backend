@@ -14,7 +14,15 @@ const taskSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Employee'
   },
-  eta: Date
+  eta: Date,
+  complete: {
+    type: Boolean,
+    default: false
+  },
+  closed: {
+    type: Boolean,
+    default: false
+  }
 }, { timestamps: true });
 
 taskSchema.methods.toJSON = function() {

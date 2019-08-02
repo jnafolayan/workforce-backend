@@ -1,13 +1,14 @@
 import { Router } from 'express';
 import AttendanceController from './attendance.controller';
+import verifyAuth from '../../middlewares/verifyAuth';
 
 const attendanceRouter = Router();
 
-attendanceRouter.get('/', AttendanceController.getAllEmployeesAttendance);
+attendanceRouter.get('/', verifyAuth, AttendanceController.getAllEmployeesAttendance);
 
-attendanceRouter.post('/entry', AttendanceController.signin);
-attendanceRouter.post('/exit', AttendanceController.signout);
+attendanceRouter.post('/entry', verifyAuth, AttendanceController.signin);
+attendanceRouter.post('/exit', verifyAuth, AttendanceController.signout);
 
-attendanceRouter.get('/today', AttendanceController.getTodaysAttendance);
+attendanceRouter.get('/today', verifyAuth, AttendanceController.getTodaysAttendance);
 
 export default attendanceRouter;
