@@ -63,15 +63,16 @@
 # Specification
 
 ### Admin
+
 **POST** _/api/admin_ - Register a new admin
-**Request**
+##### Request
 ```
 {
   "username": string,
   "password": string
 }
 ```
-**Response**
+##### Response
 ```
 {
   "status": number,
@@ -80,14 +81,14 @@
 ```
 
 **POST** _/api/admin/login_ - Sign in as an admin
-**Request**
+##### Request
 ```
 {
   "username": string,
   "password": string
 }
 ```
-**Response**
+##### Response
 ```
 {
   "status": number,
@@ -99,6 +100,7 @@
 ```
 
 ### Attendance
+
 **GET** _/api/attendance_
 ###### Response
 ```
@@ -111,24 +113,27 @@
   }]
 }
 ```
+
 **POST** _/api/attendance/entry_ - Employee can sign in for the day
-**Response**
+##### Response
 ```
 {
   "status": number,
   "message": string
 }
 ```
+
 **POST** _/api/attendance/exit_ - Employee can sign out for the day
-**Response**
+##### Response
 ```
 {
   "status": number,
   "message": string
 }
 ```
+
 **POST** _/api/attendance/today_ - Get attendance for the day for an employee
-**Response**
+##### Response
 ```
 {
   "status": number,
@@ -136,5 +141,59 @@
     "entry": Date,
     "exit": Date | null
   }]
+}
+```
+
+### Employees
+
+**POST** _/api/employees_ - Sign up a new employee
+##### Request
+```
+{
+  "firstname": string,
+  "lastname": string,
+  "phone": string,
+  "email": string,
+  "picture": string,
+  "dob": Date,
+  "gender": string,
+  "role": string,
+  "password": string,
+  "cv": string
+}
+```
+##### Response
+```
+{
+  "status": number,
+  "message": string
+}
+```
+
+**POST** _/api/employees/login_ - Sign in as an employee
+##### Request
+```
+{
+  "email": string,
+  "password": string
+}
+```
+##### Response
+```
+{
+  "status": number,
+  "message": string,
+  "data": [{
+    "token": string 
+  }]
+}
+```
+
+**GET** _/api/employees_ - Get all employees
+##### Response
+```
+{
+  "status": number,
+  "data": [Employee]
 }
 ```

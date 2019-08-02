@@ -66,7 +66,7 @@ export default class EmployeeController {
 
     function getEmployee() {
       return Employee.findOne({
-        username: req.body.username
+        email: req.body.email
       });
     }
 
