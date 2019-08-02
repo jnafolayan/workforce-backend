@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import Employee from "./employee.model";
 import Attendance from "../attendance/attendance.model"
 import Leave from "../leaves/leave.model"
+import Task from "../tasks/task.model"
 
 import {
   createError,
@@ -197,6 +198,33 @@ export default class EmployeeController {
       res.status(200).json({
         status: 200,
         data: docs.map(leave => leave.toJSON())
+      });
+    }
+  }
+
+  static getEmployeeTasks(req, res, next) {
+    getOrigIdFromGenerated(req.params.employeeId, Employee)
+      .then(verifyEmployeeExists)
+      .then(getAll)
+      .then(sendResponse)
+      .catch(next);
+
+    function verifyEmployeeExists(id) {
+      if (!id)
+        throw createError(404, 'Employee account not found');
+      return id;
+    }
+
+    function getAll(id) { 
+      return Task.find({ recepient: id })
+        .populate('issuer recepient')
+        .exec();
+    }
+
+    function sendResponse(docs) {
+      res.status(200).json({
+        status: 200,
+        data: docs.map(task => task.toJSON())
       });
     }
   }

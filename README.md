@@ -234,6 +234,15 @@
 }
 ```
 
+**GET** _/api/employees/:employeeId/tasks_ - Get all tasks assigned to an employee
+##### Response
+```
+{
+  "status": number,
+  "data": [Task]
+}
+```
+
 ### Leaves
 
 **POST** _/api/leaves_ - Request for a leave
@@ -254,7 +263,7 @@
 }
 ```
 
-**GET** _/api/leaves/leaveId_ - Get details of a leave
+**GET** _/api/leaves/:leaveId_ - Get details of a leave
 ##### Response
 ```
 {
@@ -272,7 +281,7 @@
 }
 ```
 
-**GET** _/api/leaves/:leaveId/accept_ - Grant a leave
+**PATCH** _/api/leaves/:leaveId/accept_ - Grant a leave
 ##### Response
 ```
 {
@@ -281,7 +290,72 @@
 }
 ```
 
-**GET** _/api/leaves/:leaveId/decline - Refuse a leave
+**PATCH** _/api/leaves/:leaveId/decline_ - Refuse a leave
+##### Response
+```
+{
+  "status": number,
+  "message": string
+}
+```
+
+### Tasks
+
+**POST** _/api/tasks_ - Create and assign a new task
+##### Request
+```
+{
+  "details": string,
+  "recepient": string (employee id),
+  "eta": Date
+}
+```
+##### Response
+```
+{
+  "status": number,
+  "message": string,
+  "data": [Task]
+}
+```
+
+**GET** _/api/tasks/:taskId_ - Get details of a task
+##### Response
+```
+{
+  "status": number,
+  "data": [Task]
+}
+```
+
+**GET** _/api/tasks_ - Get details of all tasks
+##### Response
+```
+{
+  "status": number,
+  "data": [Task]
+}
+```
+
+**PATCH** _/api/tasks/:taskId/complete_ - Label a task as complete
+##### Response
+```
+{
+  "status": number,
+  "message": string
+}
+```
+
+**PATCH** _/api/tasks/:taskId/close_ - Tag a task as closed
+##### Response
+```
+{
+  "status": number,
+  "message": string
+}
+```
+
+**PATCH** _/api/tasks/:taskId/open_ - Tag a task as open and not complete
 ##### Response
 ```
 {

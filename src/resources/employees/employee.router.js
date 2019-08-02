@@ -15,5 +15,6 @@ employeeRouter.get('/:employeeId', EmployeeController.getEmployee);
 employeeRouter.delete('/:employeeId', verifyAuth, verifyAdmin, EmployeeController.removeEmployee);
 
 employeeRouter.get('/:employeeId/leaves', verifyAuth, EmployeeController.getEmployeeLeaves);
+employeeRouter.get('/:employeeId/tasks', verifyAuth, EmployeeController.getEmployeeTasks);
 
 export default employeeRouter;
