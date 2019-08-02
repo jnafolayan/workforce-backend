@@ -1,19 +1,22 @@
 import Task from './task.model';
+import Employee from '../employee.model';
 import {
-  createError
+  createError,
+  getOrigIdFromGenerated
 } from '../../util';
 
 export default class TaskController {
   static createTask(req, res, next) {
-    createNewTask()
+    getObjectIdFromGenerated(req.body.receiver, Employee)
+      .then(createNewTask)
       .then(sendResponse)
       .catch(next);
 
-    function createNewTask() {
+    function createNewTask(_id) {
       const factoryObj = {
         issuer: req.user.id,
         details: req.body.details,
-        receiver: req.body.receiver,
+        receiver: _id,
         eta: req.body.eta
       };
       return Task.create(factoryObj);
