@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import LeaveController from './leave.controller';
-
+import verifyAuth from '../../middlewares/verifyAuth';
 
 const leaveRouter = Router();
 

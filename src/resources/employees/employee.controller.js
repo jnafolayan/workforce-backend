@@ -91,16 +91,22 @@ export default class EmployeeController {
     }
 
     function generateEmployeeToken(employee) {
-      return generateJwtToken({
-        id: employee._id
-      }, '7d');
+      return [
+        employee,
+        generateJwtToken({
+          id: employee._id
+        }, '7d')
+      ];
     }
 
-    function sendResponse(token) {
+    function sendResponse([employee, token]) {
       res.status(200).json({
         status: 200,
         message: 'Employee logged in',
-        data: [{ token }]
+        data: [{
+          token,
+          employeeId: employee.id 
+        }]
       });
     }
   }

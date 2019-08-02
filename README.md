@@ -35,7 +35,7 @@
 }
 ```
 
-### Leaves {#leaves}
+### Leave {#leave}
 ```
 {
   "id": string,
@@ -47,7 +47,7 @@
 }
 ```
 
-### Tasks {#tasks}
+### Task {#task}
 ```
 {
   "id": string,
@@ -57,6 +57,15 @@
   "eta": Date,
   "complete": Boolean,
   "closed": Boolean
+}
+```
+
+### Role {#role}
+```
+{
+  "id": string,
+  "name": string,
+  "actions": [string]
 }
 ```
 
@@ -195,5 +204,88 @@
 {
   "status": number,
   "data": [Employee]
+}
+```
+
+**GET** _/api/employees/:employeeId_ - Get an employee
+##### Response
+```
+{
+  "status": number,
+  "data": [Employee]
+}
+```
+
+**DELETE** _/api/employees/:employeeId_ - Remove an employee
+##### Response
+```
+{
+  "status": number,
+  "message": string
+}
+```
+
+**GET** _/api/employees/:employeeId/leaves_ - Get all leaves applied for by an employee
+##### Response
+```
+{
+  "status": number,
+  "data": [Leave]
+}
+```
+
+### Leaves
+
+**POST** _/api/leaves_ - Request for a leave
+##### Request
+```
+{
+  "reason": string,
+  "start": Date,
+  "end": Date
+}
+```
+##### Response
+```
+{
+  "status": number,
+  "message": string,
+  "data": [Leave]
+}
+```
+
+**GET** _/api/leaves/leaveId_ - Get details of a leave
+##### Response
+```
+{
+  "status": number,
+  "data": [Leave]
+}
+```
+
+**GET** _/api/leaves_ - Get details of all leaves
+##### Response
+```
+{
+  "status": number,
+  "data": [Leave]
+}
+```
+
+**GET** _/api/leaves/:leaveId/accept_ - Grant a leave
+##### Response
+```
+{
+  "status": number,
+  "message": string
+}
+```
+
+**GET** _/api/leaves/:leaveId/decline - Refuse a leave
+##### Response
+```
+{
+  "status": number,
+  "message": string
 }
 ```
