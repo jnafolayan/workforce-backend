@@ -10,7 +10,8 @@ const taskSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Employee'
   },
-  details: String,
+  title: String,
+  description: String,
   recepient: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Employee'
@@ -29,8 +30,9 @@ const taskSchema = new mongoose.Schema({
 taskSchema.methods.toJSON = function() {
   return {
     id: this.id,
+    title: this.title,
+    description: this.description,
     issuer: this.issuer,
-    details: this.details,
     receipient: this.recepient,
     eta: this.eta
   };
