@@ -25,6 +25,7 @@ const employeeModel = new mongoose.Schema({
 
 employeeModel.methods.toJSON = function() {
   return {
+    id: this.id,
     firstname: this.firstname,
     lastname: this.lastname,
     phone: this.phone,

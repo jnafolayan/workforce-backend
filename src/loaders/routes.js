@@ -18,7 +18,7 @@ export default function loadRoutes(app, config) {
       // handle internal server errors
       if (!err.status) {
         console.log(err);
-        err = createError(500, 'Internal server error');
+        err = createError(500, err.message || 'Internal server error');
       }
 
       res.status(err.status).json({
