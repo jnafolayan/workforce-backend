@@ -125,6 +125,19 @@ export default class EmployeeController {
     }
   }
 
+  static updateEmployee(req, res, next) {
+    Employee.updateOne({ id: req.params.id }, { ...req.body })
+      .then(sendResponse)
+      .catch(next);
+
+    function sendResponse() {
+      res.status(200).json({
+        status: 200,
+        message: 'Employee account deleted'
+      });
+    }
+  }
+
   // route to remove a staff
   static removeEmployee(req, res, next) {
     getOrigIdFromGenerated(req.params.employeeId, Employee)
@@ -216,8 +229,8 @@ export default class EmployeeController {
     }
 
     function getAll(id) { 
-      return Task.find({ recepient: id })
-        .populate('issuer recepient')
+      return Task.find({ receiver: id })
+        .populate('issuer receiver')
         .exec();
     }
 

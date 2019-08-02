@@ -13,7 +13,7 @@ export default class TaskController {
       const factoryObj = {
         issuer: req.user.id,
         details: req.body.details,
-        recepient: req.body.recepient,
+        receiver: req.body.receiver,
         eta: req.body.eta
       };
       return Task.create(factoryObj);
@@ -37,7 +37,7 @@ export default class TaskController {
 
     function getTask() {
       return Task.findOne({ id: req.params.taskId })
-        .populate('issuer recepient')
+        .populate('issuer receiver')
         .exec();
     }
 
@@ -48,8 +48,8 @@ export default class TaskController {
     }
 
     function checkIfIssuerOrRecepientIsClient(task) {
-      if (task.issuer != req.user.id && task.recepient != req.user.id)
-        throw createError(403, 'Only the issuer or recepient can view this task');
+      if (task.issuer != req.user.id && task.receiver != req.user.id)
+        throw createError(403, 'Only the issuer or receiver can view this task');
       return task;
     }
 
@@ -63,7 +63,7 @@ export default class TaskController {
 
   static getAllTasks(req, res, next) {
     Task.find({})
-      .populate('issuer recepient')
+      .populate('issuer receiver')
       .exec()
       .then(sendResponse)
       .catch(next);
@@ -72,14 +72,14 @@ export default class TaskController {
       const id = req.user.id;
       res.status(200).json({
         status: 200,
-        data: docs.filter(task => task.issuer == id || task.recepient == id)
+        data: docs.filter(task => task.issuer == id || task.receiver == id)
                   .map(task => task.toJSON())
       });
     }
   }
 
   static completeTask(req, res, next) {
-    const query = { id: req.params.taskId, recepient: req.user.id };
+    const query = { id: req.params.taskId, receiver: req.user.id };
 
     Task.updateOne(query, { complete: true, closed: false })
       .then(sendResponse)

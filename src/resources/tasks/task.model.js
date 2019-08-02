@@ -12,7 +12,7 @@ const taskSchema = new mongoose.Schema({
   },
   title: String,
   description: String,
-  recepient: {
+  receiver: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Employee'
   },
@@ -33,7 +33,7 @@ taskSchema.methods.toJSON = function() {
     title: this.title,
     description: this.description,
     issuer: this.issuer,
-    receipient: this.recepient,
+    receiver: this.receiver,
     eta: this.eta
   };
 };
