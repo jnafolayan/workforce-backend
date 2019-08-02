@@ -1,5 +1,5 @@
 import Task from './task.model';
-import Employee from '../employee.model';
+import Employee from '../employees/employee.model';
 import {
   createError,
   getOrigIdFromGenerated
