@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import uuidv1 from 'uuid/v1';
 
 const attendanceSchema = new mongoose.Schema({
   id: { 

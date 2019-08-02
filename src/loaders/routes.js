@@ -1,6 +1,7 @@
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import { setup } from '../apiRouter';
+import { createError } from '../util';
 
 /**
  * Registers all api routes with the express app.
@@ -15,8 +16,11 @@ export default function loadRoutes(app, config) {
 
     app.use((err, req, res, next) => {
       // handle internal server errors
-      if (!err.status)
+      if (!err.status) {
+        console.log(err);
         err = createError(500, 'Internal server error');
+      }
+      console.log(err.message)
       res.status(err.status).json({
         status: err.status,
         message: err.message
