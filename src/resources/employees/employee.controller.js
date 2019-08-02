@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import Employee from "./employee.model";
 import Attendance from "../attendance/attendance.model"
 import Leave from "../leaves/leave.model"
@@ -84,7 +85,7 @@ export default class EmployeeController {
     }
 
     function abortIfPasswordMismatch([employee, status]) {
-      if (status)
+      if (!status)
         throw createError(403, 'The password doesn\'t match');
       return employee;
     }

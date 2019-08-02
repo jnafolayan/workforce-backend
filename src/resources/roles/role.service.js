@@ -11,7 +11,8 @@ export default class RoleService {
    * @param  {Array} options.actions  The list of actions possible for the role.
    * @return {[type]}                 [description]
    */
-  static createRole({ name }) {
+  static createRole({ name, actions }) {
+    actions = actions || [];
     name = name.toLowerCase();
 
     return getExistingRole()
@@ -28,7 +29,7 @@ export default class RoleService {
     }
 
     function createNewRole() {
-      return Role.create({ name });
+      return Role.create({ name, actions });
     }
   }
 

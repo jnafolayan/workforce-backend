@@ -7,12 +7,12 @@ const employeeRouter = Router();
 
 // only an admin can access this route
 employeeRouter.post('/', verifyAuth, verifyAdmin, EmployeeController.signup);
-employeeRouter.get('/', verifyAuth, EmployeeController.getEmployees);
+employeeRouter.get('/', EmployeeController.getEmployees);
 
 employeeRouter.post('/login', EmployeeController.login);
 
-employeeRouter.get('/:employeeId', verifyAuth, EmployeeController.getEmployee);
-employeeRouter.delete('/:employeeId', verifyAuth, EmployeeController.removeEmployee);
+employeeRouter.get('/:employeeId', EmployeeController.getEmployee);
+employeeRouter.delete('/:employeeId', verifyAuth, verifyAdmin, EmployeeController.removeEmployee);
 
 employeeRouter.get('/:employeeId/leaves', verifyAuth, EmployeeController.getEmployeeLeaves);
 
