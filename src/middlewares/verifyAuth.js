@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { createError } from '../util';
 import { jwtSecret } from '../config';
 
 export default function verifyAuth(req, res, next) {
