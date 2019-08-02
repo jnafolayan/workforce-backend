@@ -8,7 +8,8 @@ import {
 
 export default class AdminController {
   static registerAdmin(req, res, next) {
-    createNewAdmin()
+    Promise.resolve()
+      .then(createNewAdmin)
       .then(genPasswordHash)
       .then(attachPasswordHash)
       .then(sendResponse)
@@ -23,7 +24,7 @@ export default class AdminController {
     function genPasswordHash(admin) {
       return Promise.all([
         Promise.resolve(admin),
-        bcrypt.hash(req.body.password, 11)
+       generateHash(req.body.password)
       ]);
     }
 
@@ -69,7 +70,7 @@ export default class AdminController {
     }
 
     function abortIfPasswordMismatch([admin, status]) {
-      if (status)
+      if (!status)
         throw createError(403, 'The password doesn\'t match');
       return admin;
     }

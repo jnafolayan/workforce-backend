@@ -1,5 +1,5 @@
 import Leave from "./leave.model";
-import Employee from "../employee/employee.model";
+import Employee from "../employees/employee.model";
 import { 
   createError,
   getOrigIdFromGenerated 

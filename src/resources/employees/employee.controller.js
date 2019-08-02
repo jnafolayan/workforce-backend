@@ -1,6 +1,8 @@
+import bcrypt from 'bcrypt';
 import Employee from "./employee.model";
 import Attendance from "../attendance/attendance.model"
-import Leave from "../leave/leave.model"
+import Leave from "../leaves/leave.model"
+import Task from "../tasks/task.model"
 
 import {
   createError,
@@ -10,7 +12,7 @@ import {
 } from '../../util';
 
 export default class EmployeeController {
-  static async signup(req, res ,next) {
+  static signup(req, res ,next) {
     getExisting()
       .then(abortIfEmployeeExists)
       .then(createNewEmployee)
@@ -66,7 +68,7 @@ export default class EmployeeController {
 
     function getEmployee() {
       return Employee.findOne({
-        username: req.body.username
+        email: req.body.email
       });
     }
 
@@ -84,22 +86,28 @@ export default class EmployeeController {
     }
 
     function abortIfPasswordMismatch([employee, status]) {
-      if (status)
+      if (!status)
         throw createError(403, 'The password doesn\'t match');
       return employee;
     }
 
     function generateEmployeeToken(employee) {
-      return generateJwtToken({
-        id: employee._id
-      }, '7d');
+      return [
+        employee,
+        generateJwtToken({
+          id: employee._id
+        }, '7d')
+      ];
     }
 
-    function sendResponse(token) {
+    function sendResponse([employee, token]) {
       res.status(200).json({
         status: 200,
         message: 'Employee logged in',
-        data: [{ token }]
+        data: [{
+          token,
+          employeeId: employee.id 
+        }]
       });
     }
   }
@@ -117,8 +125,21 @@ export default class EmployeeController {
     }
   }
 
+  static updateEmployee(req, res, next) {
+    Employee.updateOne({ id: req.params.employeeId }, { ...req.body })
+      .then(sendResponse)
+      .catch(next);
+
+    function sendResponse() {
+      res.status(200).json({
+        status: 200,
+        message: 'Employee account deleted'
+      });
+    }
+  }
+
   // route to remove a staff
-  static async removeEmployee(req, res, next) {
+  static removeEmployee(req, res, next) {
     getOrigIdFromGenerated(req.params.employeeId, Employee)
       .then(verifyEmployeeExists)
       .then(deleteAllAttendance)
@@ -181,7 +202,7 @@ export default class EmployeeController {
     }
 
     function getAll(id) { 
-      return Leave.find({ by: id });
+      return Leave.find({ by: id })
         .populate('by')
         .exec();
     }
@@ -190,6 +211,33 @@ export default class EmployeeController {
       res.status(200).json({
         status: 200,
         data: docs.map(leave => leave.toJSON())
+      });
+    }
+  }
+
+  static getEmployeeTasks(req, res, next) {
+    getOrigIdFromGenerated(req.params.employeeId, Employee)
+      .then(verifyEmployeeExists)
+      .then(getAll)
+      .then(sendResponse)
+      .catch(next);
+
+    function verifyEmployeeExists(id) {
+      if (!id)
+        throw createError(404, 'Employee account not found');
+      return id;
+    }
+
+    function getAll(id) { 
+      return Task.find({ receiver: id })
+        .populate('issuer receiver')
+        .exec();
+    }
+
+    function sendResponse(docs) {
+      res.status(200).json({
+        status: 200,
+        data: docs.map(task => task.toJSON())
       });
     }
   }

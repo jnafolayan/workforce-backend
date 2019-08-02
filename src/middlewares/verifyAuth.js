@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { jwtSecret } from '../config';
 
-export function verifyAuth(req, res, next) {
+export default function verifyAuth(req, res, next) {
   const tokenBearer = req.headers['authorization'];
   
   let token;

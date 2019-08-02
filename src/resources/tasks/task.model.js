@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import uuidv1 from 'uuid/v1';
 
 const taskSchema = new mongoose.Schema({
   id: { 
@@ -9,8 +10,9 @@ const taskSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Employee'
   },
-  details: String,
-  recepient: {
+  title: String,
+  description: String,
+  receiver: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Employee'
   },
@@ -28,10 +30,12 @@ const taskSchema = new mongoose.Schema({
 taskSchema.methods.toJSON = function() {
   return {
     id: this.id,
+    title: this.title,
+    description: this.description,
     issuer: this.issuer,
-    details: this.details,
-    receipient: this.recepient,
-    eta: this.eta
+    receiver: this.receiver,
+    eta: this.eta,
+    status: this.closed ? 'closed' : this.complete ? 'complete' : 'pending'
   };
 };
 
