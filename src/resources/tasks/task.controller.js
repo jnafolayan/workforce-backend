@@ -51,8 +51,8 @@ export default class TaskController {
     }
 
     function checkIfIssuerOrRecepientIsClient(task) {
-      if (task.issuer._id != req.user.id && task.receiver._id != req.user.id)
-        throw createError(403, 'Only the issuer or receiver can view this task');
+      // if (task.issuer._id != req.user.id && task.receiver._id != req.user.id)
+        // throw createError(403, 'Only the issuer or receiver can view this task');
       return task;
     }
 
@@ -75,8 +75,9 @@ export default class TaskController {
       const id = req.user.id;
       res.status(200).json({
         status: 200,
-        data: docs.filter(task => task.issuer._id == id || task.receiver._id == id)
-                  .map(task => task.toJSON())
+        data: docs.map(task => task.toJSON())
+        // data: docs.filter(task => task.issuer._id == id || task.receiver._id == id)
+                  // .map(task => task.toJSON())
       });
     }
   }
