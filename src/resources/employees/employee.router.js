@@ -14,7 +14,7 @@ employeeRouter.post(
   '/', 
   verifyAuth, 
   verifyAdmin, 
-  upload.fields(['cv', 'profile']), 
+  upload.single('profile'), 
   EmployeeController.createEmployee
 );
 employeeRouter.get('/', EmployeeController.getEmployees);

@@ -58,16 +58,12 @@ export default class EmployeeController {
     }
 
     function saveEmployeeImages(employee) {
-      const fCv = req.files.cv;
       const fProfile = req.files.profile;
       
-      if (fCv && fProfile) {
-        const cv = datauri.format(path.extname(fCv.filename), fCv.buffer);
+      if (fProfile) {
         const profile = datauri.format(path.extname(fProfile.filename), fProfile.buffer);
 
-        return cloudinary.uploader.upload(cv)
-          .then(({ url }) => employee.cv = url)
-          .then(() => cloudinary.uploader.upload(profile))
+        return cloudinary.uploader.upload(profile)
           .then(({ url }) => employee.profile = url)
           .then(() => employee);
       }
