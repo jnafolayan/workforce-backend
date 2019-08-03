@@ -1,4 +1,8 @@
+import path from 'path';
 import bcrypt from 'bcrypt';
+import DataUri from 'datauri';
+import cloudinary from 'cloudinary';
+
 import Employee from "./employee.model";
 import Attendance from "../attendance/attendance.model"
 import Leave from "../leaves/leave.model"
@@ -11,13 +15,17 @@ import {
   getOrigIdFromGenerated
 } from '../../util';
 
+const dataUri = new DataUri();
+
 export default class EmployeeController {
-  static signup(req, res ,next) {
+  static createEmployee(req, res ,next) {
     getExisting()
       .then(abortIfEmployeeExists)
       .then(createNewEmployee)
       .then(genPasswordHash)
       .then(attachPasswordHash)
+      .then(saveEmployeeImages)
+      .then(saveEmployee)
       .then(sendResponse)
       .catch(next);
 
@@ -46,6 +54,28 @@ export default class EmployeeController {
 
     function attachPasswordHash([employee, hash]) {
       employee.password = hash;
+      return employee;
+    }
+
+    function saveEmployeeImages(employee) {
+      const fCv = req.files.cv;
+      const fProfile = req.files.profile;
+      
+      if (fCv && fProfile) {
+        const cv = datauri.format(path.extname(fCv.filename), fCv.buffer);
+        const profile = datauri.format(path.extname(fProfile.filename), fProfile.buffer);
+
+        return cloudinary.uploader.upload(cv)
+          .then(({ url }) => employee.cv = url)
+          .then(() => cloudinary.uploader.upload(profile))
+          .then(({ url }) => employee.profile = url)
+          .then(() => employee);
+      }
+
+      return employee;
+    }
+
+    function saveEmployee(employee) {
       return employee.save();
     }
 

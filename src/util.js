@@ -30,7 +30,7 @@ export function getOrigIdFromGenerated(gen, model) {
     .exec()
     .then(emp => {
       if (emp)
-        return emp._id;
+        return emp._id.toHexString();
       return emp;
     });
 }

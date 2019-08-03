@@ -1,12 +1,22 @@
 import { Router } from 'express';
+import multer from 'multer';
 import EmployeeController from './employee.controller';
 import verifyAuth from '../../middlewares/verifyAuth';
 import verifyAdmin from '../../middlewares/verifyAdmin';
 
 const employeeRouter = Router();
 
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
 // only an admin can access this route
-employeeRouter.post('/', verifyAuth, verifyAdmin, EmployeeController.signup);
+employeeRouter.post(
+  '/', 
+  verifyAuth, 
+  verifyAdmin, 
+  upload.fields(['cv', 'profile']), 
+  EmployeeController.createEmployee
+);
 employeeRouter.get('/', EmployeeController.getEmployees);
 
 employeeRouter.post('/login', EmployeeController.login);
